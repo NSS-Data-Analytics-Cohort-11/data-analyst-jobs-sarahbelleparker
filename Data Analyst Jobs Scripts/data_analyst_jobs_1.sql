@@ -94,25 +94,36 @@ HAVING SUM (review_count) > 5000;
 
 
 --10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
-SELECT;
+SELECT company, AVG (star_rating)
+FROM data_analyst_jobs
+GROUP BY company
+HAVING SUM (review_count) > 5000
+ORDER BY AVG (star_rating) DESC;
 
---answer:
+--answer: Google has the higheset average rating with a rating of 4.3
 
 
 --11. Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
-SELECT;
+SELECT title
+FROM data_analyst_jobs
+WHERE title LIKE '%Analyst%';
 
---answer:
+--answer: 754 unique job titles contain the word "Analyst"; 1,636 total job titles contain the word "Analyst"
 
 
 --12. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
-SELECT:
+SELECT *
+FROM data_analyst_jobs
+WHERE title NOT ILIKE '%Analyst%' AND title NOT ILIKE '%Analytics%';
 
---answer:
+--answer: The word these titles have in common appears to be the word "data"
 
 
 --BONUS: Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 SELECT *
 FROM data_analyst_jobs
 WHERE skill = 'SQL'
-	AND days_since_posting >21;
+	AND days_since_posting >21
+	AND domain IS NOT NULL
+GROUP BY title
+ORDER BY days_since_posting DESC;
