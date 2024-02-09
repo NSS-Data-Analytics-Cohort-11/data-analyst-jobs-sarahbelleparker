@@ -88,9 +88,9 @@ WHERE location = 'CA';
 SELECT company, AVG (star_rating)
 FROM data_analyst_jobs
 GROUP BY company
-HAVING review_count > 5000;
+HAVING SUM (review_count) > 5000;
 
---answer: 41
+--answer: 71
 
 
 --10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
